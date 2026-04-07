@@ -5,7 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.settings import config
 from app.api.v1.router import api_router
 
-app = FastAPI()
+app = FastAPI(
+    title=config.app_settings.APP_NAME,
+    version=config.app_settings.API_VERSION
+)
 
 app.include_router(api_router, prefix='/api/v1')
 

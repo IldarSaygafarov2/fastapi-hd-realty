@@ -5,5 +5,30 @@ services:
     ports:
       - "8000:8000"
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
     volumes:
       - ./:/app
+
+  db:
+    image: postgres:16-alpine
+    container_name: app-database
+    env_file:
+      - .env
+    environment: 
+        # POSTGRES_USER: ${POSTGRES_USER}
+        # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        # POSTGRES_DB: ${POSTGRES_DB}
+      DATABASE_URL: ${POSTGRES_DSN}
+    
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+
+
+volumes:
+  db_data:
+
+    
