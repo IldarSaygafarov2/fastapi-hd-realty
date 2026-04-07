@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: fastapi-app
+    container_name: hd_realty_app
     ports:
       - "8000:8000"
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
@@ -14,21 +14,19 @@ services:
     container_name: app-database
     env_file:
       - .env
-    environment: 
-        # POSTGRES_USER: ${POSTGRES_USER}
-        # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        # POSTGRES_DB: ${POSTGRES_DB}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       DATABASE_URL: ${POSTGRES_DSN}
-    
+
     ports:
-      - "5432:5432"
+      - "5434:5432"
 
     volumes:
       - db_data:/var/lib/postgresql/data
 
-
-
 volumes:
   db_data:
 
-    
+
