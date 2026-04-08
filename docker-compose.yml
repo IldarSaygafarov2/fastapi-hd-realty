@@ -4,7 +4,7 @@ services:
     container_name: hd_realty_app
     ports:
       - "8000:8000"
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload & alembic upgrade head"
 
     volumes:
       - ./:/app
@@ -21,7 +21,7 @@ services:
       DATABASE_URL: ${POSTGRES_DSN}
 
     ports:
-      - "5434:5432"
+      - "${POSTGRES_PORT}:5432"
 
     volumes:
       - db_data:/var/lib/postgresql/data
